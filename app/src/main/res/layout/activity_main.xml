@@ -1,28 +1,33 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:padding="16dp"
-
-
-    >
-
-    <!-- A CardView that contains a TextView -->
-    <android.support.v7.widget.CardView
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_view"
-    android:layout_gravity="center"
-    android:layout_width="200dp"
-    android:layout_height="200dp"
-    card_view:cardCornerRadius="4dp">
-
-        <TextView
-            android:id="@+id/info_text"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card-veiw="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+   >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#000000">
 
-    </android.support.v7.widget.CardView>
+        <CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/card_view"
+            android:layout_gravity="center"
+            android:background="#ffffff"
+            >
 
-</LinearLayout>
+
+
+
+
+
+
+
+
+
+            </CardView>
+        </LinearLayout>
+
+</ScrollView>
