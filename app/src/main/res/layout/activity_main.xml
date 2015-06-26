@@ -10,7 +10,7 @@
 
     >
 
-    <!-- A CardView that contains a TextView -->
+    <!-- A CardView that contains a TextView
     <android.support.v7.widget.CardView
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>-->
     <happy_juggles.c4q.nyc.happy_juggles.CustomAutoCompleteTextView
         android:id="@+id/atv_places"
         android:layout_width="fill_parent"
@@ -57,6 +57,18 @@
 
     </RadioGroup>
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your home address here"
+        android:id="@+id/home_add"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/home_add_save"
+        android:text="Save"/>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,5 +80,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.google.android.gms.maps.MapFragment"/>
+
+
+
+
+
 
 </LinearLayout>
