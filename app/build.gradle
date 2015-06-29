@@ -26,4 +26,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:21.0.+'
     compile 'com.google.android.gms:play-services:7.5.0'
     compile 'com.google.android.gms:play-services-maps:7.5.0'
+    compile 'com.github.dexafree:materiallist:2.4.5'
+    compile files('libs/commons-io-2.4.jar')
 }
