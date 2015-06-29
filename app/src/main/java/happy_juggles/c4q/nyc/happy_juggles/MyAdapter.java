@@ -10,6 +10,7 @@ import android.widget.TextView;
  * Created by Hoshiko on 6/21/15.
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+
     private String[] mDataset;
 
     // Provide a reference to the views for each data item
@@ -57,4 +58,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public int getItemCount() {
         return mDataset.length;
     }
+
+
 }
