@@ -52,7 +52,11 @@ import java.util.List;
 /**
  * Created by Hoshiko on 6/28/15.
  */
+
+
 public class MapActivity extends Activity implements OnMapReadyCallback, LocationListener {
+
+
     GoogleMap map;
     ArrayList<LatLng> markerPoints;
     TextView tvDistanceDuration;
