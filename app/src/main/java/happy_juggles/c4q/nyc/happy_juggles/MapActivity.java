@@ -2,7 +2,9 @@ package happy_juggles.c4q.nyc.happy_juggles;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Criteria;
@@ -196,7 +198,65 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
         });
 
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Save Address");
+        builder.setMessage("Please enter the address");
+        final EditText inputField = new EditText(this);
+        inputField.setOnKeyListener(new View.OnKeyListener() {
+            /**
+             * This listens for the user to press the enter button on
+             * the keyboard and then hides the virtual keyboard
+             */
+            public boolean onKey(View arg0, int arg1, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (arg1 == KeyEvent.KEYCODE_ENTER)) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(inputField.getWindowToken(), 0);
+                    return true;
+                }
+                return false;
+            }
+        });
+        builder.setView(inputField);
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String location = inputField.getText().toString();
+                Toast.makeText(getBaseContext(), location, Toast.LENGTH_SHORT).show();
+                if(location==null || location.equals("")){
+                    Toast.makeText(getBaseContext(), "No Place is entered", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                String url = "https://maps.googleapis.com/maps/api/geocode/json?";
+
+                try {
+                    // encoding special characters like space in the user input place
+                    location = URLEncoder.encode(location, "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+                String address = "address=" + location;
+
+                String sensor = "sensor=false";
+
+                // url , from where the geocoding data is fetched
+                url = url + address + "&" + sensor;
+
+                // Instantiating DownloadTask to get places from Google Geocoding service
+                // in a non-ui thread
+                AddDownloadTask downloadTask = new AddDownloadTask();
+
+                // Start downloading the geocoding places
+                downloadTask.execute(url);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", null);
+
+        builder.create().show();
 
 
         final EditText homeAddress = (EditText)findViewById(R.id.home_add);

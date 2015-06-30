@@ -3,55 +3,82 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <happy_juggles.c4q.nyc.happy_juggles.CustomAutoCompleteTextView
-        android:id="@+id/atv_places"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:hint="@string/str_atv_places"
-        android:singleLine="true" />
-    <RadioGroup
-        android:id="@+id/rg_modes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
 
-        <RadioButton android:id="@+id/rb_driving"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_rb_driving"
-            android:checked="true" />
 
-        <RadioButton android:id="@+id/rb_bicycling"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_rb_bicycling" />
 
-        <RadioButton android:id="@+id/rb_walking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/str_rb_walking" />
 
-    </RadioGroup>
 
-    <EditText
+
+
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter your home address here"
-        android:id="@+id/home_add"/>
+        android:layout_height="wrap_content">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/home_add_save"
-        android:text="Save"/>
+        <RadioGroup
+            android:id="@+id/rg_modes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal" >
 
-    <Button
+            <RadioButton android:id="@+id/rb_driving"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_rb_driving"
+                android:checked="true" />
+
+            <RadioButton android:id="@+id/rb_bicycling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_rb_bicycling" />
+
+            <RadioButton android:id="@+id/rb_walking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_rb_walking" />
+
+        </RadioGroup>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/get_direction"
+            android:text="Get Direction"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/get_direction"
-        android:text="Get Direction"/>
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your home address here"
+            android:id="@+id/home_add"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/home_add_save"
+            android:text="Save"/>
+
+
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,7 +89,7 @@
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:name="com.google.android.gms.maps.MapFragment"/>
 
 </LinearLayout>
