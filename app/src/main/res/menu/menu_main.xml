@@ -8,11 +8,11 @@
         app:showAsAction="never" />
 
     <item android:id="@+id/action_add_at_start"
-        android:title="ADD AT START"
+        android:title="ADD BIG MAP"
         app:showAsAction="never" />
 
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+    <item android:id="@+id/action_add_all_cards"
+        android:title="ADD ALL CARDS"
         android:orderInCategory="100"
         app:showAsAction="never" />
 </menu>

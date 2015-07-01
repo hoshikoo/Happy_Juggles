@@ -2,12 +2,18 @@ package happy_juggles.c4q.nyc.happy_juggles;
 
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.NotificationCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,6 +34,7 @@ import happy_juggles.c4q.nyc.happy_juggles.db.TaskDBHelper;
 public class ToDoList extends ActionBarActivity {
     private ListAdapter listAdapter;
     private TaskDBHelper helper;
+    String task;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,7 +92,7 @@ public class ToDoList extends ActionBarActivity {
                 builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String task = inputField.getText().toString();
+                        task = inputField.getText().toString();
 
                         helper = new TaskDBHelper(ToDoList.this);
                         SQLiteDatabase db = helper.getWritableDatabase();
@@ -96,6 +103,8 @@ public class ToDoList extends ActionBarActivity {
 
                         db.insertWithOnConflict(TaskContract.TABLE,null,values,SQLiteDatabase.CONFLICT_IGNORE);
                         updateUI();
+
+                        showNotification();
                     }
                 });
 
@@ -147,4 +156,42 @@ public class ToDoList extends ActionBarActivity {
         sqlDB.execSQL(sql);
         updateUI();
     }
+
+    //NOTIFICATION----------------------------
+
+    public static final int NOTIFICATION_ID = 1234;
+
+    private void showNotification() {
+        updateNotification("New task added in ToDo List", task);
+    }
+
+    private void updateNotification(String titletext, String contentText){
+
+//        String titletext ="Title";
+//        String contentText = "Hello!";
+
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+
+        builder.setAutoCancel(true);
+
+        builder.setContentTitle(titletext);
+        builder.setSmallIcon(R.drawable.ic_stat_action_assignment);
+        builder.setContentText(contentText);
+
+        Intent resultIntent = new Intent(this, ToDoList.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+
+
+        Notification notification = builder.build();
+        notificationManager.notify(NOTIFICATION_ID, notification);
+
+
+    }
+
+
+
+
 }

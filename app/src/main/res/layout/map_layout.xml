@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp">
 
 
+   <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-
-
-
-
-
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal"
+        android:layout_gravity="center">
 
         <RadioGroup
             android:id="@+id/rg_modes"
@@ -40,51 +36,47 @@
                 android:text="@string/str_rb_walking" />
 
         </RadioGroup>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/get_direction"
-            android:text="Get Direction"
-            />
-
 
     </LinearLayout>
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/get_direction"
+        android:text="Get Direction"
+        android:background="#ff00ace6"
+        android:textColor="#fffffff7"
+        />
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter your home address here"
-            android:id="@+id/home_add"/>
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <!--<EditText-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="Enter address here"-->
+            <!--android:id="@+id/home_add"/>-->
+
+
+
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/home_add_save"
-            android:text="Save"/>
+            android:text="Save New Address"/>
+
+
 
 
     </LinearLayout>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/tv_location" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text=""-->
+        <!--android:id="@+id/tv_location" />-->
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/map"
