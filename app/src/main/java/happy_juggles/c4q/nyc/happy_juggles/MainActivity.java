@@ -105,7 +105,7 @@ public class MainActivity extends ActionBarActivity {
 
     private Card getRandomCard(final int position) {
         String title = "Card number " + (position + 1);
-        String description = "Lorem ipsum dolor sit amet";
+        String description = "This is just a test";
 
         int type = position % 5;
 
@@ -118,11 +118,11 @@ public class MainActivity extends ActionBarActivity {
 
                 card = new WelcomeCard(this);
                 card.setTitle("Welcome to Happy Juggles");
-                card.setDescription("created by H(Hoshiko) and 2Js(Janneisy & Joshelyn)");
-                card.setTag("WELCOME_CARD");
+                card.setDescription("Created by H(Hoshiko) and 2Js(Janneisy & Joshelyn)");
+                card.setTag("WELCOME CARD");
 
-                ((WelcomeCard) card).setSubtitle("Swipe through the cards!");
-                ((WelcomeCard) card).setButtonText("Okay!");
+                ((WelcomeCard) card).setSubtitle("Swipe Us Cards!");
+                ((WelcomeCard) card).setButtonText("Okay! Press Me!");
                 ((WelcomeCard) card).setOnButtonPressedListener(new OnButtonPressListener() {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
@@ -132,7 +132,7 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
 
-                ((WelcomeCard) card).setBackgroundColor(Color.rgb(255,153,51));
+                ((WelcomeCard) card).setBackgroundColor(Color.rgb(55, 62, 64));
                 card.setDismissible(true);
                 return card;
 
@@ -183,7 +183,7 @@ public class MainActivity extends ActionBarActivity {
 
 //                bigcard.setBitmap(bitmap1);
 
-                bigcard1.setTag("BASIC_IMAGE_BUTTON_CARD");
+                bigcard1.setTag("BASIC IMAGE BUTTON CARD");
                 bigcard1.setRightButtonText("Check directions");
                 bigcard1.setLeftButtonText("Add Big map Card");
                 bigcard1.setTitleColor(Color.rgb(0,172,230));
@@ -224,11 +224,11 @@ public class MainActivity extends ActionBarActivity {
                 card = new WelcomeCard(this);
                 card.setTitle("ToDo List Card");
 //                card.setDescription("You can add the card below");
-                card.setTag("LIST_CARD");
+                card.setTag("TODO LIST CARD");
 
-                ((WelcomeCard) card).setButtonText("Go to Todo List");
+                ((WelcomeCard) card).setButtonText("Press to Enter a Task");
 
-                ((WelcomeCard) card).setBackgroundColor(Color.rgb(0, 172, 230));
+                ((WelcomeCard) card).setBackgroundColor(Color.rgb(217, 89, 76));
 
 
 
@@ -253,7 +253,7 @@ public class MainActivity extends ActionBarActivity {
                 card = new BasicButtonsCard(this);
                 card.setDescription("Weather");
                 card.setTitle("Check the weather");
-                card.setTag("BASIC_BUTTONS_CARD");
+                card.setTag("WEATHER CARD");
                 ((BasicButtonsCard) card).setLeftButtonText("Weather");
                 ((BasicButtonsCard) card).setRightButtonText("URI");
                 ((BasicButtonsCard) card).setRightButtonTextColorRes(R.color.accent_material_dark);
@@ -288,10 +288,9 @@ public class MainActivity extends ActionBarActivity {
 
                 card = new BasicButtonsCard(this);
                 card.setDescription("Sports");
-                card.setTitle("LET'S GO TEAM USA");
-                card.setTag("BASIC_BUTTONS_CARD");
-                ((BasicButtonsCard) card).setLeftButtonText("Test1");
-                ((BasicButtonsCard) card).setRightButtonText("Test2");
+                card.setTag("SPORTS CARD");
+                ((BasicButtonsCard) card).setLeftButtonText("Matches");
+                ((BasicButtonsCard) card).setRightButtonText("Teams");
                 ((BasicButtonsCard) card).setRightButtonTextColorRes(R.color.accent_material_dark);
 
                 if (position % 2 == 0)
@@ -301,7 +300,7 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
 
-                        Intent sportIntent = new Intent(MainActivity.this,SportsActivity.class);
+                        Intent sportIntent = new Intent(MainActivity.this, SportsActivity.class);
                         MainActivity.this.startActivity(sportIntent);
                         Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
                     }
@@ -311,9 +310,9 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
                         Uri uri = Uri.parse("http://www.fifa.com/womensworldcup/matches/index.html");
-                        Intent mWeatherSiteIntent =new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(mWeatherSiteIntent);
-                        Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
+                        Intent mSportsSiteIntent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(mSportsSiteIntent);
+                        Toast.makeText(mContext, "Go Team Go!", Toast.LENGTH_SHORT).show();
                     }
                 });
                 card.setDismissible(true);
@@ -390,7 +389,7 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
 
-                ((WelcomeCard) card).setBackgroundColor(Color.rgb(255, 153, 51));
+                ((WelcomeCard) card).setBackgroundColor(Color.rgb(55, 62, 64));
                 card.setDismissible(true);
                 return card;
 

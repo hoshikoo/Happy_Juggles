@@ -26,5 +26,5 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="onDoneButtonClick"
-        android:background="#ff00ace6" />
+        android:background="@drawable/blue_button" />
 </RelativeLayout>

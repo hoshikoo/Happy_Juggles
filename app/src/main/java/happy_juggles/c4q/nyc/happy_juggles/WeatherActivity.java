@@ -40,8 +40,7 @@ public class WeatherActivity extends Activity {
     public MaterialListView mListView;
 
 
-    @InjectView(R.id.temperature_label)
-    TextView mTemperatureLabel;
+    @InjectView(R.id.temperature_label)TextView mTemperatureLabel;
     @InjectView(R.id.time_label) TextView mTimeLabel;
     @InjectView(R.id.humidity_value)TextView mHumidityValue;
     @InjectView(R.id.precip_value)TextView mPrecipValue;

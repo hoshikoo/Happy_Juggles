@@ -39,14 +39,22 @@
         android:text="Country"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:background="#373E40"
+        android:textColor="#FFFFFF"
         android:gravity="center"
         android:layout_weight="1"
         />
     <TextView
         android:text="Total Wins"
-        android:gravity="center"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:background="#373E40"
+        android:textColor="#FFFFFF"
         android:layout_weight="1"
         />
 </LinearLayout>
