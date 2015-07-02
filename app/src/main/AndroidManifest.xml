@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
 
     <uses-feature
@@ -67,15 +68,23 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <!--<meta-data-->
-            <!--android:name="com.google.android.geo.API_KEY"-->
-            <!--android:value="AIzaSyCK04MU5ZSAgxXFVwr9QVKh7z5u7PVUGvc"/>-->
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCK04MU5ZSAgxXFVwr9QVKh7z5u7PVUGvc"/>
 
+        <receiver android:name="happy_juggles.c4q.nyc.happy_juggles.AlarmManagerHelper" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
+        <service android:name="happy_juggles.c4q.nyc.happy_juggles.AlarmService"
+            android:enabled="true"/>
+
+        <intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+        </intent-filter>
 
     </application>
 
