@@ -43,6 +43,7 @@ public class BasicListAdapter extends ArrayAdapter<String> {
 
             viewHolder = new ViewHolder();
             viewHolder.mCheckBox = (CheckBox) convertView.findViewById(R.id.checkBox);
+
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -63,5 +64,6 @@ public class BasicListAdapter extends ArrayAdapter<String> {
 
     static class ViewHolder {
         CheckBox mCheckBox;
+
     }
 }

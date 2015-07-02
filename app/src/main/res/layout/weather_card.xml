@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dexafree.materialList.cards.internal.WelcomeCardItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MainLayout">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        card_view:cardCornerRadius="@dimen/card_corner_radius"
+        style="@style/MainCardView">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFC970B"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="_ _"
+                    android:id="@+id/temperature_label"
+                    android:textColor="@android:color/white"
+                    android:textSize="80sp"
+                    android:layout_below="@+id/iconimageView"
+                    android:layout_alignLeft="@+id/location_label"
+                    android:layout_alignStart="@+id/location_label"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/degreeImageView"
+                    android:src="@drawable/degree"
+                    android:layout_marginTop="100dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/temperature_label"
+                    android:layout_toEndOf="@+id/temperature_label"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  "
+                    android:id="@+id/time_label"
+                    android:layout_above="@+id/degreeImageView"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="#80ffffff"
+                    android:textSize="30sp"
+                    android:layout_marginBottom="-70dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New York, NY"
+                    android:id="@+id/location_label"
+                    android:layout_above="@+id/time_label"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/iconimageView"
+                    android:layout_alignTop="@+id/location_label"
+                    android:src="@drawable/cloudy_night"
+
+                    android:layout_alignBottom="@+id/time_label"
+                    android:layout_alignLeft="@+id/summary_label"
+                    android:layout_alignStart="@+id/summary_label"
+                    android:layout_toLeftOf="@+id/time_label"
+                    android:layout_toStartOf="@+id/time_label"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="100"
+                    android:layout_weight="2"
+                    android:id="@+id/linearLayout"
+                    android:layout_below="@+id/temperature_label"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    >
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Humidity"
+                            android:id="@+id/humidity_label"
+                            android:textColor="#80ffffff"
+                            android:gravity="center_horizontal"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="__"
+                            android:id="@+id/humidity_value"
+                            android:textSize="24sp"
+                            android:textColor="@android:color/white"
+                            android:gravity="center_horizontal"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Rain/Snow"
+                            android:id="@+id/precip_label"
+                            android:gravity="center_horizontal"
+                            android:textColor="#80ffffff"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="  "
+                            android:id="@+id/precip_value"
+                            android:textColor="@android:color/white"
+                            android:textSize="24sp"
+                            android:gravity="center_horizontal"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stormy with a chance of rain showers."
+                    android:id="@+id/summary_label"
+                    android:textColor="@android:color/white"
+                    android:textSize="18dp"
+                    android:gravity="center_horizontal"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_centerHorizontal="true"/>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/cardDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider_white"
+
+                android:layout_marginLeft="@dimen/big_padding"
+                android:layout_marginRight="@dimen/big_padding"
+                android:visibility="visible"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:id="@+id/ok_button"
+                android:clickable="true"
+                android:focusable="false"
+                android:textStyle="bold"
+                android:padding="@dimen/big_padding"
+                android:drawableLeft="@drawable/ic_check"
+                android:drawablePadding="@dimen/big_padding"
+                style="@style/LeftButtonBaseStyle"
+                tools:text="Check Forcast"
+                android:background="#FF8DAF0D"
+
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</com.dexafree.materialList.cards.internal.WelcomeCardItemView>
+
