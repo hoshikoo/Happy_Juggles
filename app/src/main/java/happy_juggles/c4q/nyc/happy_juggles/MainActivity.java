@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.dexafree.materialList.cards.BasicButtonsCard;
 import com.dexafree.materialList.cards.BasicListCard;
 import com.dexafree.materialList.cards.BigImageButtonsCard;
 import com.dexafree.materialList.cards.BigImageCard;
@@ -88,53 +89,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-//map----------------------------------------------------------------------------------------------------
 
-//    public static Bitmap getGoogleMapThumbnail(String result){
-//        String URL = "http://maps.google.com/maps/api/staticmap?center="+result+"&zoom=17&size=1800x500&sensor=&maptype=roadmap" +
-//                "&markers=color:blue%7Clabel:S%7C"+result;
-//        Bitmap bmp = null;
-//        HttpClient httpclient = new DefaultHttpClient();
-//        HttpGet request = new HttpGet(URL);
-//
-//        InputStream in = null;
-//        try {
-//            in = httpclient.execute(request).getEntity().getContent();
-//            bmp = BitmapFactory.decodeStream(in);
-//            in.close();
-//        } catch (IllegalStateException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        } catch (ClientProtocolException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//
-//        return bmp;
-//    }
-//
-//    private void SaveImage(Bitmap finalBitmap) {
-//
-//        String root = Environment.getExternalStorageDirectory().toString();
-//        File myDir = new File(root + "/map_images");
-//        myDir.mkdirs();
-//        String fname = "map.jpg";
-//        File file = new File (myDir, fname);
-//        if (file.exists ()) file.delete ();
-//        try {
-//            FileOutputStream out = new FileOutputStream(file);
-//            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-//            out.flush();
-//            out.close();
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-    //map----------------------------------------------------------------------------------------------------
 
 
     //cards--------------------------------------------------------------------------
@@ -267,28 +222,38 @@ public class MainActivity extends ActionBarActivity {
 
 
             case 3:
+                card = new BasicButtonsCard(this);
+                card.setDescription("Weather");
+                card.setTitle("Check the weather");
+                card.setTag("BASIC_BUTTONS_CARD");
+                ((BasicButtonsCard) card).setLeftButtonText("Weather");
+                ((BasicButtonsCard) card).setRightButtonText("URI");
+                ((BasicButtonsCard) card).setRightButtonTextColorRes(R.color.accent_material_dark);
 
-                card = new WelcomeCard(this);
-                card.setTitle("Check the weather forecast");
-                card.setDescription("");
-                card.setTag("Weather");
+                if (position % 2 == 0)
+                    ((BasicButtonsCard) card).setDividerVisible(true);
 
-                ((WelcomeCard) card).setSubtitle("");
-                ((WelcomeCard) card).setButtonText("Check Forecast");
-                ((WelcomeCard) card).setOnButtonPressedListener(new OnButtonPressListener() {
+                ((BasicButtonsCard) card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
 
-                        Uri uri = Uri.parse("http://forecast.io/#/f/40.7792,-73.9070");
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(intent);
-                        Toast.makeText(mContext, " Weather!", Toast.LENGTH_SHORT).show();
+                        Intent weatherIntent = new Intent(MainActivity.this,WeatherActivity.class);
+                        MainActivity.this.startActivity(weatherIntent);
+                        Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-//                if (position % 2 == 0)
-                ((WelcomeCard) card).setBackgroundColorRes(R.color.background_material_dark);
+                ((BasicButtonsCard) card).setOnRightButtonPressedListener(new OnButtonPressListener() {
+                    @Override
+                    public void onButtonPressedListener(View view, Card card) {
+                        Uri uri = Uri.parse("http://forecast.io/#/f/40.7792,-73.9070");
+                        Intent mWeatherSiteIntent =new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(mWeatherSiteIntent);
+                        Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
+                    }
+                });
                 card.setDismissible(true);
+
                 return card;
 
             case 4:
@@ -312,6 +277,10 @@ public class MainActivity extends ActionBarActivity {
                 card.setDismissible(true);
                 return card;
 
+
+
+
+
             default:
                 card = new WelcomeCard(this);
                 card.setTitle("Welcome to Happy Juggles");
@@ -334,6 +303,7 @@ public class MainActivity extends ActionBarActivity {
                 return card;
 
         }
+
 
    }
 //
@@ -366,6 +336,7 @@ private Card generateMapCard() {
 
     return card;
 }
+
     private Card generateNewCard() {
         BasicListCard card = new BasicListCard(this);
         card.setTitle("ToDo List Card");
