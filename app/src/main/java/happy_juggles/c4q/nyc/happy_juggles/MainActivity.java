@@ -5,8 +5,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 import com.dexafree.materialList.cards.BasicButtonsCard;
 import com.dexafree.materialList.cards.BasicListCard;
 import com.dexafree.materialList.cards.BigImageButtonsCard;
+import com.dexafree.materialList.cards.BigImageCard;
 import com.dexafree.materialList.cards.OnButtonPressListener;
 import com.dexafree.materialList.cards.SimpleCard;
 import com.dexafree.materialList.cards.WelcomeCard;
@@ -43,43 +47,44 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        // Save a reference to the context
-        mContext = this;
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
 
-        // Bind the MaterialListView to a variable
-        mListView = (MaterialListView) findViewById(R.id.material_listview);
+            // Save a reference to the context
+            mContext = this;
 
-        // Fill the array with mock content
-        fillArray();
+            // Bind the MaterialListView to a variable
+            mListView = (MaterialListView) findViewById(R.id.material_listview);
 
-        // Set the dismiss listener
-        mListView.setOnDismissCallback(new OnDismissCallback() {
-            @Override
-            public void onDismiss(Card card, int position) {
+            // Fill the array with mock content
+            fillArray();
 
-                // Recover the tag linked to the Card
-                String tag = card.getTag().toString();
+            // Set the dismiss listener
+            mListView.setOnDismissCallback(new OnDismissCallback() {
+                @Override
+                public void onDismiss(Card card, int position) {
 
-                // Show a toast
-                Toast.makeText(mContext, "You have dismissed a " + tag, Toast.LENGTH_SHORT).show();
-            }
-        });
+                    // Recover the tag linked to the Card
+                    String tag = card.getTag().toString();
 
-        // Add the ItemTouchListener
-        mListView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(CardItemView view, int position) {
-                Log.d("CARD_TYPE", view.getTag().toString());
-            }
+                    // Show a toast
+                    Toast.makeText(mContext, "You have dismissed a " + tag, Toast.LENGTH_SHORT).show();
+                }
+            });
 
-            @Override
-            public void onItemLongClick(CardItemView view, int position) {
-                Log.d("LONG_CLICK", view.getTag().toString());
-            }
-        });
+            // Add the ItemTouchListener
+            mListView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(CardItemView view, int position) {
+                    Log.d("CARD_TYPE", view.getTag().toString());
+                }
+
+                @Override
+                public void onItemLongClick(CardItemView view, int position) {
+                    Log.d("LONG_CLICK", view.getTag().toString());
+                }
+            });
 
     }
 
@@ -100,7 +105,7 @@ public class MainActivity extends ActionBarActivity {
         String title = "Card number " + (position + 1);
         String description = "Lorem ipsum dolor sit amet";
 
-        int type = position % 3;
+        int type = position % 5;
 
         SimpleCard card;
         Drawable icon;
@@ -111,9 +116,10 @@ public class MainActivity extends ActionBarActivity {
 
                 card = new WelcomeCard(this);
                 card.setTitle("Welcome to Happy Juggles");
-                card.setDescription("Swipe through the cards!");
+                card.setDescription("created by H(oshiko) and 2Js(Janneisy & Joshelyn)");
                 card.setTag("WELCOME_CARD");
-                ((WelcomeCard) card).setSubtitle("created by H(oshiko) and 2Js(Janneisy & Joshelyn");
+
+                ((WelcomeCard) card).setSubtitle("Swipe through the cards!");
                 ((WelcomeCard) card).setButtonText("Okay!");
                 ((WelcomeCard) card).setOnButtonPressedListener(new OnButtonPressListener() {
                     @Override
@@ -124,53 +130,15 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
 
-//                if (position % 2 == 0)
-                ((WelcomeCard) card).setBackgroundColorRes(R.color.background_material_dark);
+                ((WelcomeCard) card).setBackgroundColor(Color.rgb(255,153,51));
                 card.setDismissible(true);
                 return card;
 
 
-//        case 1:
-//                card = new BigImageCard(this);
-//                card.setDescription(description);
-//                card.setTitle("Map Card");
-//                String result = null;
-//                try {
-//
-//                    SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-//                    // Writing data to SharedPreferences
-//                    SharedPreferences.Editor editor = preferences.edit();
-//                    result = preferences.getString("LatLngStr", "");
-//
-//
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//    //
-//    //                String[] latandlng =  result.split(",");
-//    //                double latitude = Double.parseDouble(latandlng[0]);
-//    //                double longitude = Double.parseDouble(latandlng[1]);
-//
-//
-//                googleStaticMap = "http://maps.google.com/maps/api/staticmap?center="+result+"&zoom=17&size=1800x500&sensor=&maptype=roadmap" +
-//                        "&markers=color:blue%7Clabel:S%7C"+result;
-//                card.setDrawable(googleStaticMap);
-//                card.setTag("BIG_IMAGE_CARD");
-//                return card;
-
-            case 2:
+            case 1:
                 BigImageButtonsCard bigcard = new BigImageButtonsCard(this);
                 bigcard.setDescription("Map of the saved address");
                 bigcard.setTitle("Map Card");
-//                String photoPath = Environment.getExternalStorageDirectory()+"/map_images/map.jpg";
-//                Bitmap bitmap1 = BitmapFactory.decodeFile(photoPath);
-//                BitmapFactory.Options options = new BitmapFactory.Options();
-//                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-//                Bitmap bitmap = BitmapFactory.decodeFile(photoPath, options);
-//                card.setDrawable("http://maps.google.com/maps/api/staticmap?center=40.6900081,-73.9771259&zoom=15&size=300x300&sensor=false");
-
-//                bigcard.setBitmap(bitmap1);
                 String result = null;
                 try {
 
@@ -183,13 +151,14 @@ public class MainActivity extends ActionBarActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                googleStaticMap = "http://maps.google.com/maps/api/staticmap?center=" + result + "&zoom=17&size=1800x500&sensor=&maptype=roadmap" +
+                googleStaticMap = "http://maps.google.com/maps/api/staticmap?center=" + result + "&zoom=17&size=600x600&sensor=&maptype=roadmap" +
                         "&markers=color:blue%7Clabel:S%7C" + result;
                 bigcard.setDrawable(googleStaticMap);
+
                 bigcard.setTag("BASIC_IMAGE_BUTTON_CARD");
                 bigcard.setRightButtonText("Check directions");
-                bigcard.setLeftButtonText("Save Address");
-                bigcard.setTitleColor(R.color.background_material_dark);
+                bigcard.setLeftButtonText("Add Big map Card");
+                bigcard.setTitleColor(Color.rgb(0,172,230));
 
                 if (position % 2 == 0)
                     bigcard.setDividerVisible(true);
@@ -197,10 +166,23 @@ public class MainActivity extends ActionBarActivity {
                 bigcard.setOnRightButtonPressedListener(new OnButtonPressListener() {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
-//                        Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
-//                        ((SimpleCard) card).setTitle("CHANGED ON RUNTIME");
-                        Intent mapIntent = new Intent(MainActivity.this, MapActivity.class);
-                        MainActivity.this.startActivity(mapIntent);
+
+                        if (!haveNetworkConnection()){
+
+                            Intent noInternetIntent = new Intent(MainActivity.this, NoInternetActivity.class);
+                            MainActivity.this.startActivity(noInternetIntent);
+
+                        }else {
+                            Intent mapIntent = new Intent(MainActivity.this, MapActivity.class);
+                            MainActivity.this.startActivity(mapIntent);
+                        }
+                    }
+                });
+
+                bigcard.setOnLeftButtonPressedListener(new OnButtonPressListener() {
+                    @Override
+                    public void onButtonPressedListener(View view, Card card) {
+                        mListView.addAtStart(generateMapCard());
                     }
                 });
 
@@ -209,155 +191,34 @@ public class MainActivity extends ActionBarActivity {
 
                 return bigcard;
 
-//            case 3:
-//                card = new BasicButtonsCard(this);
-//                card.setDescription(description);
-//                card.setTitle(title);
-//                card.setTag("BASIC_BUTTONS_CARD");
-//                ((BasicButtonsCard) card).setLeftButtonText("LEFT");
-//                ((BasicButtonsCard) card).setRightButtonText("RIGHT");
-//                ((BasicButtonsCard) card).setRightButtonTextColorRes(R.color.accent_material_dark);
-//
-//                if (position % 2 == 0)
-//                    ((BasicButtonsCard) card).setDividerVisible(true);
-//
-//                ((BasicButtonsCard) card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
-//                    @Override
-//                    public void onButtonPressedListener(View view, Card card) {
-//                        Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//                ((BasicButtonsCard) card).setOnRightButtonPressedListener(new OnButtonPressListener() {
-//                    @Override
-//                    public void onButtonPressedListener(View view, Card card) {
-//                        Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//                card.setDismissible(true);
-//
-//
-//                return card;
-//
-//
-//            case 4:
-//                card = new BasicListCard(this);
-//                card.setTitle("ToDo List Card");
-//                card.setDescription("Please click on the card to edit the list!");
-//                BasicListAdapter adapter = new BasicListAdapter(this);
-//                adapter.add("Text1");
-//                adapter.add("Text2");
-//                adapter.add("Text3");
-//                card.setTag("LIST_CARD");
-//
-//                ((BasicListCard) card).setAdapter(adapter);
-//
-//                ((BasicListCard) card).setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        Toast.makeText(mContext, "Let's edit the card!", Toast.LENGTH_SHORT).show();
-//                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-//
-//                        // set title
-//                        alertDialogBuilder.setTitle("Edit the todo list");
-//
-//                        // set dialog message
-//                        alertDialogBuilder
-//                                .setMessage("Click yes to exit!")
-//                                .setCancelable(false)
-//                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface dialog, int id) {
-//                                        // if this button is clicked, close
-//                                        // current activity
-//                                        MainActivity.this.finish();
-//                                    }
-//                                })
-//                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface dialog, int id) {
-//                                        // if this button is clicked, just close
-//                                        // the dialog box and do nothing
-//                                        dialog.cancel();
-//                                    }
-//                                });
-//
-//                        // create alert dialog
-//                        AlertDialog alertDialog = alertDialogBuilder.create();
-//
-//                        // show it
-//                        alertDialog.show();
-//
-//                    }
-//                });
-//
-//                card.setDismissible(true);
-//
-//                return card;
-//
 
-            case 1:
-                card = new BasicButtonsCard(this);
+            case 2:
+                card = new WelcomeCard(this);
                 card.setTitle("ToDo List Card");
-                card.setDescription("You can add the card below");
+//                card.setDescription("You can add the card below");
                 card.setTag("LIST_CARD");
 
-                ((BasicButtonsCard) card).setRightButtonText("Edit card?");
-                ((BasicButtonsCard) card).setLeftButtonText("Make simple todo list card");
-                ((BasicButtonsCard) card).setRightButtonTextColorRes(R.color.accent_material_dark);
+                ((WelcomeCard) card).setButtonText("Go to Todo List");
 
-                if (position % 2 == 0)
-                    ((BasicButtonsCard) card).setDividerVisible(true);
+                ((WelcomeCard) card).setBackgroundColor(Color.rgb(0, 172, 230));
 
-                ((BasicButtonsCard) card).setOnRightButtonPressedListener(new OnButtonPressListener() {
+
+
+                ((WelcomeCard) card).setOnButtonPressedListener(new OnButtonPressListener() {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
                         Toast.makeText(mContext, "Let's edit the card!", Toast.LENGTH_SHORT).show();
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
 
-                        // set title
-                        alertDialogBuilder.setTitle("Edit the todo list");
-
-                        // set dialog message
-                        alertDialogBuilder
-                                .setMessage("Click yes to edit the todo list")
-                                .setCancelable(false)
-                                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        // if this button is clicked, close
-                                        // current activity
                                         Intent todoIntent = new Intent(MainActivity.this, ToDoList.class);
                                         MainActivity.this.startActivity(todoIntent);
-                                    }
-                                })
-                                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        // if this button is clicked, just close
-                                        // the dialog box and do nothing
-                                        dialog.cancel();
-                                    }
-                                });
-
-                        // create alert dialog
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-
-                        // show it
-                        alertDialog.show();
 
                     }
                 });
 
-                ((BasicButtonsCard) card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
-                    @Override
-                    public void onButtonPressedListener(View view, Card card) {
-//                        mListView.add(generateNewCard());
-                        mListView.addAtStart(generateNewCard());
-
-                    }
-                });
 
                 card.setDismissible(true);
 
                 return card;
-
 
 
             case 3:
@@ -393,13 +254,40 @@ public class MainActivity extends ActionBarActivity {
                 });
                 card.setDismissible(true);
 
+                return card;
+
+            case 4:
+
+                card = new WelcomeCard(this);
+                card.setTitle("Sports Card");
+                card.setDescription("");
+                card.setTag("Alarm");
+
+                ((WelcomeCard) card).setSubtitle("");
+                ((WelcomeCard) card).setButtonText("Check Game Result!");
+                ((WelcomeCard) card).setOnButtonPressedListener(new OnButtonPressListener() {
+                    @Override
+                    public void onButtonPressedListener(View view, Card card) {
+
+                    }
+                });
+
+
+                ((WelcomeCard) card).setBackgroundColorRes(R.color.background_material_dark);
+                card.setDismissible(true);
+                return card;
+
+
+
+
 
             default:
                 card = new WelcomeCard(this);
                 card.setTitle("Welcome to Happy Juggles");
-                card.setDescription("Swipe through the cards!");
+                card.setDescription("created by H(oshiko) and 2Js(Janneisy & Joshelyn)");
                 card.setTag("WELCOME_CARD");
-                ((WelcomeCard) card).setSubtitle("created by H(oshiko) and 2Js(Janneisy & Joshelyn");
+
+                ((WelcomeCard) card).setSubtitle("Swipe through the cards!");
                 ((WelcomeCard) card).setButtonText("Okay!");
                 ((WelcomeCard) card).setOnButtonPressedListener(new OnButtonPressListener() {
                     @Override
@@ -410,14 +298,45 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
 
-                if (position % 2 == 0)
-                    ((WelcomeCard) card).setBackgroundColorRes(R.color.background_material_dark);
+                ((WelcomeCard) card).setBackgroundColor(Color.rgb(255, 153, 51));
                 card.setDismissible(true);
                 return card;
+
         }
 
+
+   }
+//
+private Card generateMapCard() {
+    BigImageCard card = new BigImageCard(this);
+    card.setTitle("Big Map Card");
+    card.setTitleColor(Color.rgb(0, 172, 230));
+    card.setDescription("The map of your saved address");
+
+    String result = null;
+    try {
+
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        // Writing data to SharedPreferences
+        SharedPreferences.Editor editor = preferences.edit();
+        result = preferences.getString("LatLngStr", "");
+
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
-    //
+
+
+    googleStaticMap = "http://maps.google.com/maps/api/staticmap?center="+result+"&zoom=17&size=1800x500&sensor=&maptype=roadmap" +
+            "&markers=color:blue%7Clabel:S%7C"+result;
+    card.setDrawable(googleStaticMap);
+    card.setTag("BIG_IMAGE_CARD");
+
+    card.setDismissible(true);
+
+    return card;
+}
+
     private Card generateNewCard() {
         BasicListCard card = new BasicListCard(this);
         card.setTitle("ToDo List Card");
@@ -474,14 +393,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void addMockCardAtStart(){
-//        BasicImageButtonsCard card = new BasicImageButtonsCard(this);
-//        card.setDrawable(R.drawable.dog);
-//        card.setTitle("Hi there");
-//        card.setDescription("I've been added on top!");
-////        card.setLeftButtonText("LEFT");
-////        card.setRightButtonText("OK");
-//        card.setTag("BASIC_IMAGE_BUTTONS_CARD");
-
 
         BasicListCard card = new BasicListCard(this);
         card.setTitle("Simple ToDo List Card");
@@ -550,7 +461,11 @@ public class MainActivity extends ActionBarActivity {
                 mListView.clear();
                 break;
             case R.id.action_add_at_start:
-                addMockCardAtStart();
+                mListView.addAtStart(generateMapCard());
+                break;
+
+            case R.id.action_add_all_cards:
+                fillArray();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -559,8 +474,22 @@ public class MainActivity extends ActionBarActivity {
     //cards--------------------------------------------------------------------------
 
 
+    private boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
 
-
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
+    }
 
 }
 
