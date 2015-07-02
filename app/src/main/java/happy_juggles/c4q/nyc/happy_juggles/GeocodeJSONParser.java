@@ -1,8 +1,11 @@
 package happy_juggles.c4q.nyc.happy_juggles;
 
 /**
+ * HOSHIKO'S MAP CARD
+ *
  * Created by Hoshiko on 6/26/15.
  */
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

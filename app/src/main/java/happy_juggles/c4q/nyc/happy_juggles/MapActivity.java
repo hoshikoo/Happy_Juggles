@@ -1,8 +1,15 @@
 package happy_juggles.c4q.nyc.happy_juggles;
 
+/**
+ * HOSHIKO'S MAP CARD
+ *
+ * Created by Hoshiko on 6/28/15.
+ */
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Criteria;
@@ -48,10 +55,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-/**
- * Created by Hoshiko on 6/28/15.
- */
 public class MapActivity extends Activity implements OnMapReadyCallback, LocationListener {
     GoogleMap map;
     ArrayList<LatLng> markerPoints;
@@ -69,10 +72,13 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
     String filename = "myfile";
     public static final String PREFS_NAME = "MyPrefsFile";
 
+    AlertDialog.Builder builder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map_layout);
+        alert();
 
         // Getting Google Play availability status
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
@@ -99,6 +105,9 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
 
             // Getting LocationManager object from System Service LOCATION_SERVICE
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200000, 0, this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 200000, 0, this);
+            locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 200000, 0, this);
 
             // Creating a criteria object to retrieve provider
             Criteria criteria = new Criteria();
@@ -109,10 +118,12 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
             // Getting Current Location
             location = locationManager.getLastKnownLocation(provider);
 
+
             if(location!=null){
                 onLocationChanged(location);
             }
-            locationManager.requestLocationUpdates(provider, 2000, 0, this);
+//            locationManager.requestLocationUpdates(provider, 0, 0, this);
+
         }
 
 
@@ -152,15 +163,6 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
         // Initializing
         markerPoints = new ArrayList<LatLng>();
 
-//        // Getting reference to SupportMapFragment of the activity_main
-//        SupportMapFragment fm = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
-//
-//        // Getting Map for the SupportMapFragment
-//        map = fm.getMap();
-//
-//        // Enable MyLocation Button in the Map
-//        map.setMyLocationEnabled(true);
-
         // Setting onclick event listener for the map
         map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 
@@ -196,63 +198,12 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
         });
 
 
-
-
-
-        final EditText homeAddress = (EditText)findViewById(R.id.home_add);
-        homeAddress.setOnKeyListener(new View.OnKeyListener() {
-            /**
-             * This listens for the user to press the enter button on
-             * the keyboard and then hides the virtual keyboard
-             */
-            public boolean onKey(View arg0, int arg1, KeyEvent event) {
-                // If the event is a key-down event on the "enter" button
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
-                        (arg1 == KeyEvent.KEYCODE_ENTER)) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(homeAddress.getWindowToken(), 0);
-                    return true;
-                }
-                return false;
-            }
-        });
-
             Button saveButton = (Button)findViewById(R.id.home_add_save);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String location = homeAddress.getText().toString();
-                Toast.makeText(getBaseContext(), location, Toast.LENGTH_SHORT).show();
-                if(location==null || location.equals("")){
-                    Toast.makeText(getBaseContext(), "No Place is entered", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                String url = "https://maps.googleapis.com/maps/api/geocode/json?";
-
-                try {
-                    // encoding special characters like space in the user input place
-                    location = URLEncoder.encode(location, "utf-8");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-
-                String address = "address=" + location;
-
-                String sensor = "sensor=false";
-
-                // url , from where the geocoding data is fetched
-                url = url + address + "&" + sensor;
-
-                // Instantiating DownloadTask to get places from Google Geocoding service
-                // in a non-ui thread
-                AddDownloadTask downloadTask = new AddDownloadTask();
-
-                // Start downloading the geocoding places
-                downloadTask.execute(url);
-
-
+                alert();
 
             }
         });
@@ -542,10 +493,10 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -556,7 +507,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
     @Override
     public void onLocationChanged(Location location) {
 
-        TextView tvLocation = (TextView) findViewById(R.id.tv_location);
+//        TextView tvLocation = (TextView) findViewById(R.id.tv_location);
 
         // Getting latitude of the current location
         double latitude = location.getLatitude();
@@ -574,7 +525,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
         map.animateCamera(CameraUpdateFactory.zoomTo(15));
 
         // Setting latitude and longitude in the TextView tv_location
-        tvLocation.setText("Latitude:" +  latitude  + ", Longitude:"+ longitude );
+//        tvLocation.setText("Latitude:" +  latitude  + ", Longitude:"+ longitude );
 
     }
 
@@ -809,6 +760,68 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
             // Drawing polyline in the Google Map for the i-th route
             map.addPolyline(lineOptions);
         }
+    }
+
+    public void alert(){
+        builder = new AlertDialog.Builder(this);
+        builder.setTitle("Save Address");
+        builder.setMessage("Please enter the address");
+        final EditText inputField = new EditText(this);
+        inputField.setOnKeyListener(new View.OnKeyListener() {
+            /**
+             * This listens for the user to press the enter button on
+             * the keyboard and then hides the virtual keyboard
+             */
+            public boolean onKey(View arg0, int arg1, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (arg1 == KeyEvent.KEYCODE_ENTER)) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(inputField.getWindowToken(), 0);
+                    return true;
+                }
+                return false;
+            }
+        });
+        builder.setView(inputField);
+        builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String location = inputField.getText().toString();
+                Toast.makeText(getBaseContext(), location, Toast.LENGTH_SHORT).show();
+                if(location==null || location.equals("")){
+                    Toast.makeText(getBaseContext(), "No Place is entered", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String url = "https://maps.googleapis.com/maps/api/geocode/json?";
+
+                try {
+                    // encoding special characters like space in the user input place
+                    location = URLEncoder.encode(location, "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
+                String address = "address=" + location;
+
+                String sensor = "sensor=false";
+
+                // url , from where the geocoding data is fetched
+                url = url + address + "&" + sensor;
+
+                // Instantiating DownloadTask to get places from Google Geocoding service
+                // in a non-ui thread
+                AddDownloadTask downloadTask = new AddDownloadTask();
+
+                // Start downloading the geocoding places
+                downloadTask.execute(url);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", null);
+
+        builder.create().show();
     }
 
 }

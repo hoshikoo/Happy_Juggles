@@ -23,6 +23,7 @@ package happy_juggles.c4q.nyc.happy_juggles;
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
  */
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +45,7 @@ public class BasicListAdapter extends ArrayAdapter<String> {
 
             viewHolder = new ViewHolder();
             viewHolder.mCheckBox = (CheckBox) convertView.findViewById(R.id.checkBox);
+
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -64,5 +66,6 @@ public class BasicListAdapter extends ArrayAdapter<String> {
 
     static class ViewHolder {
         CheckBox mCheckBox;
+
     }
 }

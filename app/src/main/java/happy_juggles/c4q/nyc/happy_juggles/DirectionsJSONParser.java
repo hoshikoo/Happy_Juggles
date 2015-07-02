@@ -1,8 +1,11 @@
 package happy_juggles.c4q.nyc.happy_juggles;
 
 /**
+ * HOSHIKO'S MAP CARD
+ *
  * Created by Hoshiko on 6/24/15.
  */
+
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
