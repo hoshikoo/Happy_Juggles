@@ -35,6 +35,7 @@ public class BasicListAdapter extends ArrayAdapter<String> {
         super(context, android.R.layout.simple_list_item_1);
     }
 
+
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder viewHolder;

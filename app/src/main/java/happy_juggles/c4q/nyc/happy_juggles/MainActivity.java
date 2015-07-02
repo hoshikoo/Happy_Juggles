@@ -928,7 +928,7 @@ public class MainActivity extends ActionBarActivity {
 
         int type = position % 6;
 
-        SimpleCard card;
+        final SimpleCard card;
         Drawable icon;
 
         switch (type) {
@@ -978,7 +978,6 @@ public class MainActivity extends ActionBarActivity {
     //                String[] latandlng =  result.split(",");
     //                double latitude = Double.parseDouble(latandlng[0]);
     //                double longitude = Double.parseDouble(latandlng[1]);
-
 
                 googleStaticMap = "http://maps.google.com/maps/api/staticmap?center="+result+"&zoom=17&size=1800x500&sensor=&maptype=roadmap" +
                         "&markers=color:blue%7Clabel:S%7C"+result;
@@ -1080,6 +1079,7 @@ public class MainActivity extends ActionBarActivity {
                 card = new BasicListCard(this);
                 card.setTitle("ToDo List Card");
                 card.setDescription("Please click on the card to edit the list!");
+
                 BasicListAdapter adapter = new BasicListAdapter(this);
                 adapter.add("Text1");
                 adapter.add("Text2");
@@ -1091,6 +1091,7 @@ public class MainActivity extends ActionBarActivity {
                 ((BasicListCard) card).setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                         Toast.makeText(mContext, "Let's edit the card!", Toast.LENGTH_SHORT).show();
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
 
@@ -1125,11 +1126,10 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
 
-
                 card.setDismissible(true);
 
                 return card;
-
+//--------------------------------------Joshelyn's Sports Activity------------------------------------------
             case 6:
 
             card = new BasicButtonsCard(this);
@@ -1158,8 +1158,9 @@ public class MainActivity extends ActionBarActivity {
             });
             card.setDismissible(true);
 
-
             return card;
+
+//--------------------------------------Joshelyn's Sports Activity------------------------------------------
 
             default:
                 card = new BigImageButtonsCard(this);
@@ -1243,14 +1244,7 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
     //cards--------------------------------------------------------------------------
-
-
-
-
-
 
 }
 
