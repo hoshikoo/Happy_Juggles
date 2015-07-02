@@ -211,9 +211,6 @@ public class MainActivity extends ActionBarActivity {
                 bigcard.setOnRightButtonPressedListener(new OnButtonPressListener() {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
-//                        Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
-//                        ((SimpleCard) card).setTitle("CHANGED ON RUNTIME");
-
 
                         if (!haveNetworkConnection()){
 
@@ -297,12 +294,12 @@ public class MainActivity extends ActionBarActivity {
             case 4:
 
                 card = new WelcomeCard(this);
-                card.setTitle("Alarm Clock");
+                card.setTitle("Sports Card");
                 card.setDescription("");
                 card.setTag("Alarm");
 
                 ((WelcomeCard) card).setSubtitle("");
-                ((WelcomeCard) card).setButtonText("Go to Alarm Clock");
+                ((WelcomeCard) card).setButtonText("Check Game Result!");
                 ((WelcomeCard) card).setOnButtonPressedListener(new OnButtonPressListener() {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
@@ -310,7 +307,7 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
 
-//                if (position % 2 == 0)
+
                 ((WelcomeCard) card).setBackgroundColorRes(R.color.background_material_dark);
                 card.setDismissible(true);
                 return card;
@@ -318,9 +315,10 @@ public class MainActivity extends ActionBarActivity {
             default:
                 card = new WelcomeCard(this);
                 card.setTitle("Welcome to Happy Juggles");
-                card.setDescription("Swipe through the cards!");
+                card.setDescription("created by H(oshiko) and 2Js(Janneisy & Joshelyn)");
                 card.setTag("WELCOME_CARD");
-                ((WelcomeCard) card).setSubtitle("created by H(oshiko) and 2Js(Janneisy & Joshelyn");
+
+                ((WelcomeCard) card).setSubtitle("Swipe through the cards!");
                 ((WelcomeCard) card).setButtonText("Okay!");
                 ((WelcomeCard) card).setOnButtonPressedListener(new OnButtonPressListener() {
                     @Override
@@ -331,8 +329,10 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
 
+                ((WelcomeCard) card).setBackgroundColor(Color.rgb(255, 153, 51));
                 card.setDismissible(true);
                 return card;
+
         }
 
    }
@@ -422,14 +422,6 @@ private Card generateMapCard() {
     }
 
     private void addMockCardAtStart(){
-//        BasicImageButtonsCard card = new BasicImageButtonsCard(this);
-//        card.setDrawable(R.drawable.dog);
-//        card.setTitle("Hi there");
-//        card.setDescription("I've been added on top!");
-////        card.setLeftButtonText("LEFT");
-////        card.setRightButtonText("OK");
-//        card.setTag("BASIC_IMAGE_BUTTONS_CARD");
-
 
         BasicListCard card = new BasicListCard(this);
         card.setTitle("Simple ToDo List Card");

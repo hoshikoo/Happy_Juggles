@@ -167,8 +167,6 @@ public class ToDoList extends ActionBarActivity {
 
     private void updateNotification(String titletext, String contentText){
 
-//        String titletext ="Title";
-//        String contentText = "Hello!";
 
         NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
 
