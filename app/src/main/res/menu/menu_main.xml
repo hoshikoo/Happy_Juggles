@@ -1,6 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity" >
+
+    <item android:id="@+id/action_clear"
+        android:title="CLEAR"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_add_at_start"
+        android:title="ADD BIG MAP"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_add_all_cards"
+        android:title="ADD ALL CARDS"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
 </menu>
