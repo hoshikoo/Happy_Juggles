@@ -6,12 +6,8 @@ package happy_juggles.c4q.nyc.happy_juggles;
  * Created by c4q-joshelynvivas on 7/1/15.
  */
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -31,7 +27,7 @@ import java.util.List;
 
 public class SportsActivity extends Activity {
     // Log tag
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = SportsActivity.class.getSimpleName();
 
     // Movies json url
     private static final String url = "http://worldcup.sfg.io/teams/results";
@@ -40,11 +36,12 @@ public class SportsActivity extends Activity {
     private ListView listView;
     private CustomListAdapter adapter;
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.sports_activity_main);
 
         listView = (ListView) findViewById(R.id.list);
         adapter = new CustomListAdapter(this, resultList);
@@ -56,8 +53,8 @@ public class SportsActivity extends Activity {
         pDialog.show();
 
         // changing action bar color
-        getActionBar().setBackgroundDrawable(
-                new ColorDrawable(Color.parseColor("#1b1b1b")));
+//        getActionBar().setBackgroundDrawable(
+//                new ColorDrawable(Color.parseColor("#1b1b1b")));
 
         // Creating volley request obj
         JsonArrayRequest movieReq = new JsonArrayRequest(url,

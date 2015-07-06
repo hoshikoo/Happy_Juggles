@@ -1,4 +1,4 @@
-package happy_juggles.c4q.nyc.happy_juggles;
+package happy_juggles.c4q.nyc.happy_juggles_jj;
 
 /**
  * HOSHIKO'S TODO CARD
@@ -29,8 +29,8 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import happy_juggles.c4q.nyc.happy_juggles.db.TaskContract;
-import happy_juggles.c4q.nyc.happy_juggles.db.TaskDBHelper;
+import happy_juggles.c4q.nyc.happy_juggles_jj.db.TaskContract;
+import happy_juggles.c4q.nyc.happy_juggles_jj.db.TaskDBHelper;
 
 
 public class ToDoList extends ActionBarActivity {

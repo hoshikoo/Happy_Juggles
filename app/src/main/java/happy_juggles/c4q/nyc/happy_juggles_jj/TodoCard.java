@@ -1,4 +1,4 @@
-package happy_juggles.c4q.nyc.happy_juggles;
+package happy_juggles.c4q.nyc.happy_juggles_jj;
 
 /**
  * HOSHIKO'S TODO CARD

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="happy_juggles.c4q.nyc.happy_juggles" >
+    package="happy_juggles.c4q.nyc.happy_juggles_jj" >
 
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -25,6 +25,7 @@
 
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -32,7 +33,7 @@
         >
 
         <activity
-            android:name=".MainActivity"
+            android:name="happy_juggles.c4q.nyc.happy_juggles_jj.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -42,7 +43,7 @@
         </activity>
 
         <activity
-            android:name=".MapActivity"
+            android:name="happy_juggles.c4q.nyc.happy_juggles_jj.MapActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -50,7 +51,7 @@
         </activity>
 
         <activity
-            android:name=".NoInternetActivity"
+            android:name="happy_juggles.c4q.nyc.happy_juggles_jj.NoInternetActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -59,7 +60,7 @@
         </activity>
 
         <activity
-            android:name=".ToDoList"
+            android:name="happy_juggles.c4q.nyc.happy_juggles_jj.ToDoList"
             android:label="@string/app_name" >
 
             <intent-filter>
@@ -69,12 +70,12 @@
         </activity>
 
         <activity
-            android:name=".WeatherActivity"
+            android:name="happy_juggles.c4q.nyc.happy_juggles_jj.WeatherActivity"
             android:label="@string/app_name" >
             </activity>
 
         <activity
-            android:name=".SportsActivity"
+            android:name="happy_juggles.c4q.nyc.happy_juggles_jj.SportsActivity"
             android:label="@string/app_name" >
         </activity>
 

@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/list_row_selector"
-    android:padding="8dp" >
+    android:orientation="horizontal"
+    android:weightSum="2"
+    android:padding="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
 
-    <!-- Thumbnail Image
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/thumbnail"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="8dp" -->
-
-    <!-- Country Title -->
     <TextView
         android:id="@+id/country"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/country"
+        android:gravity="center"
+        android:paddingBottom="2dip"
+        android:paddingTop="6dip"
+        android:layout_weight="1"
+        android:textColor="#43bd00"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
-    <!-- Wins -->
+    <!-- Wins label -->
     <TextView
         android:id="@+id/wins"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/wins"
-        android:textSize="@dimen/wins" />
+        android:gravity="center"
+        android:layout_weight="1"
+        android:paddingBottom="2dip"
+        android:paddingTop="6dip"
+        android:textSize="16sp"
+        android:textColor="#D9594C" />
 
-</RelativeLayout>
+</LinearLayout>

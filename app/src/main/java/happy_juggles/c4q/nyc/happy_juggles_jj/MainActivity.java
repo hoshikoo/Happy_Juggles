@@ -1,4 +1,4 @@
-package happy_juggles.c4q.nyc.happy_juggles;
+package happy_juggles.c4q.nyc.happy_juggles_jj;
 
 // MAIN ACTIVITY- WHERE WE PUT THE CARDS!!!
 
@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -22,7 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import com.dexafree.materialList.cards.BasicButtonsCard;
+import com.dexafree.materialList.cards.BasicImageButtonsCard;
 import com.dexafree.materialList.cards.BasicListCard;
 import com.dexafree.materialList.cards.BigImageButtonsCard;
 import com.dexafree.materialList.cards.BigImageCard;
@@ -97,20 +96,18 @@ public class MainActivity extends ActionBarActivity {
     //cards--------------------------------------------------------------------------
 
     private void fillArray() {
-        for (int i = 0; i < 35; i++) {
+        for (int i = 0; i < 8; i++) {
             Card card = getRandomCard(i);
             mListView.add(card);
         }
     }
 
     private Card getRandomCard(final int position) {
-        String title = "Card number " + (position + 1);
-        String description = "This is just a test";
 
-        int type = position % 5;
+
+        int type = position % 8;
 
         final SimpleCard card;
-        Drawable icon;
 
         switch (type) {
 
@@ -119,6 +116,7 @@ public class MainActivity extends ActionBarActivity {
                 card = new WelcomeCard(this);
                 card.setTitle("Welcome to Happy Juggles");
                 card.setDescription("Created by H(Hoshiko) and 2Js(Janneisy & Joshelyn)");
+                card.setDescriptionColor(Color.rgb(0, 172, 230));
                 card.setTag("WELCOME CARD");
 
                 ((WelcomeCard) card).setSubtitle("Swipe Us Cards!");
@@ -172,7 +170,7 @@ public class MainActivity extends ActionBarActivity {
 
             case 2:  //Hoshiko's Big Card
                 BigImageButtonsCard bigcard1 = new BigImageButtonsCard(this);
-                bigcard1.setDescription(description);
+                bigcard1.setDescription("Get Directions");
                 bigcard1.setTitle("Direction Card");
 //                String photoPath = Environment.getExternalStorageDirectory()+"/map_images/map.jpg";
 //                Bitmap bitmap1 = BitmapFactory.decodeFile(photoPath);
@@ -183,9 +181,9 @@ public class MainActivity extends ActionBarActivity {
 
 //                bigcard.setBitmap(bitmap1);
 
-                bigcard1.setTag("BASIC IMAGE BUTTON CARD");
-                bigcard1.setRightButtonText("Check directions");
-                bigcard1.setLeftButtonText("Add Big map Card");
+                bigcard1.setTag("MAP CARD");
+                bigcard1.setRightButtonText("Directions");
+                bigcard1.setLeftButtonText("Add Map Card");
                 bigcard1.setTitleColor(Color.rgb(0,172,230));
 
                 if (position % 2 == 0)
@@ -222,20 +220,20 @@ public class MainActivity extends ActionBarActivity {
 
             case 3:  //To Do List Card
                 card = new WelcomeCard(this);
-                card.setTitle("ToDo List Card");
+                card.setTitle("ToDo List");
 //                card.setDescription("You can add the card below");
                 card.setTag("TODO LIST CARD");
 
                 ((WelcomeCard) card).setButtonText("Press to Enter a Task");
 
-                ((WelcomeCard) card).setBackgroundColor(Color.rgb(217, 89, 76));
+                ((WelcomeCard) card).setBackgroundColor(Color.rgb(0, 172, 230));
 
 
 
                 ((WelcomeCard) card).setOnButtonPressedListener(new OnButtonPressListener() {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
-                        Toast.makeText(mContext, "Let's edit the card!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "Let's be productive!", Toast.LENGTH_SHORT).show();
 
                                         Intent todoIntent = new Intent(MainActivity.this, ToDoList.class);
                                         MainActivity.this.startActivity(todoIntent);
@@ -250,136 +248,154 @@ public class MainActivity extends ActionBarActivity {
 
 
             case 4:   //Janneisy's Weather
-                card = new BasicButtonsCard(this);
-                card.setDescription("Weather");
-                card.setTitle("Check the weather");
+
+                card = new BasicImageButtonsCard(this);
+                card.setDescription("Click below for weather updates");
+                card.setTitle("Weather");
+                card.setTitleColor(Color.rgb(0, 172, 230));
+                card.setDrawable(R.drawable.ic_launcher);
                 card.setTag("WEATHER CARD");
-                ((BasicButtonsCard) card).setLeftButtonText("Weather");
-                ((BasicButtonsCard) card).setRightButtonText("URI");
-                ((BasicButtonsCard) card).setRightButtonTextColorRes(R.color.accent_material_dark);
+                ((BasicImageButtonsCard) card).setLeftButtonText("Current");
+                ((BasicImageButtonsCard) card).setRightButtonText("Daily");
 
                 if (position % 2 == 0)
-                    ((BasicButtonsCard) card).setDividerVisible(true);
+                    ((BasicImageButtonsCard) card).setDividerVisible(true);
 
-                ((BasicButtonsCard) card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
+                ((BasicImageButtonsCard) card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
 
-                        Intent weatherIntent = new Intent(MainActivity.this,WeatherActivity.class);
-                        MainActivity.this.startActivity(weatherIntent);
-                        Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
+                        Uri uri = Uri.parse("http://forecast.io/#/f/40.7792,-73.9070");
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+
+                        Toast.makeText(mContext, "Displaying the weather forecast", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                ((BasicButtonsCard) card).setOnRightButtonPressedListener(new OnButtonPressListener() {
+                ((BasicImageButtonsCard) card).setOnRightButtonPressedListener(new OnButtonPressListener() {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
-                        Uri uri = Uri.parse("http://forecast.io/#/f/40.7792,-73.9070");
-                        Intent mWeatherSiteIntent =new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(mWeatherSiteIntent);
-                        Toast.makeText(mContext, "You have pressed the right button", Toast.LENGTH_SHORT).show();
+
+                        Intent weatherIntent= new Intent(MainActivity.this,WeatherActivity.class);
+                        startActivity(weatherIntent);
+
+                        Toast.makeText(mContext, "Displaying current weather", Toast.LENGTH_SHORT).show();
                     }
                 });
                 card.setDismissible(true);
 
+
                 return card;
+
 
             case 5:  //Joshelyn's Sports Card
 
-                card = new BasicButtonsCard(this);
-                card.setDescription("Sports");
-                card.setTag("SPORTS CARD");
-                ((BasicButtonsCard) card).setLeftButtonText("Matches");
-                ((BasicButtonsCard) card).setRightButtonText("Teams");
-                ((BasicButtonsCard) card).setRightButtonTextColorRes(R.color.accent_material_dark);
+                card = new BasicImageButtonsCard(this);
+                card.setDescription("Click for more information");
+                card.setTitle("FIFA Women's World Cup");
+                card.setTitleColor(Color.rgb(0, 172, 230));
+                card.setDrawable(R.drawable.smallestfifa);
+                card.setTag("Sports");
+                ((BasicImageButtonsCard) card).setLeftButtonText("Site");
+                ((BasicImageButtonsCard) card).setRightButtonText("Stats");
 
                 if (position % 2 == 0)
-                    ((BasicButtonsCard) card).setDividerVisible(true);
+                    ((BasicImageButtonsCard) card).setDividerVisible(true);
 
-                ((BasicButtonsCard) card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
+                ((BasicImageButtonsCard) card).setOnLeftButtonPressedListener(new OnButtonPressListener() {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
 
-                        Intent sportIntent = new Intent(MainActivity.this, SportsActivity.class);
-                        MainActivity.this.startActivity(sportIntent);
-                        Toast.makeText(mContext, "You have pressed the left button", Toast.LENGTH_SHORT).show();
+                        Uri uri = Uri.parse("http://m.fifa.com/womensworldcup/");
+                        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                        startActivity(intent);
+
+                        Toast.makeText(mContext, "Displaying FIFA Stats", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                ((BasicButtonsCard) card).setOnRightButtonPressedListener(new OnButtonPressListener() {
+                ((BasicImageButtonsCard) card).setOnRightButtonPressedListener(new OnButtonPressListener() {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
-                        Uri uri = Uri.parse("http://www.fifa.com/womensworldcup/matches/index.html");
-                        Intent mSportsSiteIntent = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(mSportsSiteIntent);
-                        Toast.makeText(mContext, "Go Team Go!", Toast.LENGTH_SHORT).show();
+
+                        Intent weatherIntent= new Intent(MainActivity.this,SportsActivity.class);
+                        startActivity(weatherIntent);
+
+                        Toast.makeText(mContext, "FIFA WOMEN'S WORLD CUP STATS", Toast.LENGTH_SHORT).show();
                     }
                 });
                 card.setDismissible(true);
-                return card;
 
-            case 6:  //To Do List Card
-                card = new BasicListCard(this);
-                card.setTitle("ToDo List Card");
-                card.setDescription("Please click on the card to edit the list!");
-
-                BasicListAdapter adapter = new BasicListAdapter(this);
-                adapter.add("Text1");
-                adapter.add("Text2");
-                adapter.add("Text3");
-                card.setTag("LIST_CARD");
-
-                ((BasicListCard) card).setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                        Toast.makeText(mContext, "Let's edit the card!", Toast.LENGTH_SHORT).show();
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-
-                        // set title
-                        alertDialogBuilder.setTitle("Edit the todo list");
-
-                        // set dialog message
-                        alertDialogBuilder
-                                .setMessage("Click yes to exit!")
-                                .setCancelable(false)
-                                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        // if this button is clicked, close
-                                        // current activity
-                                        MainActivity.this.finish();
-                                    }
-                                })
-                                .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        // if this button is clicked, just close
-                                        // the dialog box and do nothing
-                                        dialog.cancel();
-                                    }
-                                });
-
-                        // create alert dialog
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-
-                        // show it
-                        alertDialog.show();
-
-                    }
-                });
-
-                card.setDismissible(true);
 
                 return card;
+
+
+
+
+
+//            case 6:  //To Do List Card
+//                card = new BasicListCard(this);
+//                card.setTitle("ToDo List Card");
+//                card.setDescription("Please click on the card to edit the list!");
+//
+//                BasicListAdapter adapter = new BasicListAdapter(this);
+//                adapter.add("Text1");
+//                adapter.add("Text2");
+//                adapter.add("Text3");
+//                card.setTag("LIST_CARD");
+//
+//                ((BasicListCard) card).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                        Toast.makeText(mContext, "Let's edit the card!", Toast.LENGTH_SHORT).show();
+//                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+//
+//                        // set title
+//                        alertDialogBuilder.setTitle("Edit the todo list");
+//
+//                        // set dialog message
+//                        alertDialogBuilder
+//                                .setMessage("Click yes to exit!")
+//                                .setCancelable(false)
+//                                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog,int id) {
+//                                        // if this button is clicked, close
+//                                        // current activity
+//                                        MainActivity.this.finish();
+//                                    }
+//                                })
+//                                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+//                                    public void onClick(DialogInterface dialog,int id) {
+//                                        // if this button is clicked, just close
+//                                        // the dialog box and do nothing
+//                                        dialog.cancel();
+//                                    }
+//                                });
+//
+//                        // create alert dialog
+//                        AlertDialog alertDialog = alertDialogBuilder.create();
+//
+//                        // show it
+//                        alertDialog.show();
+//
+//                    }
+//                });
+//
+//                card.setDismissible(true);
+//
+//                return card;
 
 
             default:
                 card = new WelcomeCard(this);
                 card.setTitle("Welcome to Happy Juggles");
                 card.setDescription("created by H(oshiko) and 2Js(Janneisy & Joshelyn)");
-                card.setTag("WELCOME_CARD");
+                card.setTag("WELCOME CARD");
 
-                ((WelcomeCard) card).setSubtitle("Swipe through the cards!");
-                ((WelcomeCard) card).setButtonText("Okay!");
+                ((WelcomeCard) card).setSubtitle("Swipe Us!");
+                ((WelcomeCard) card).setButtonText("Okay! Press Me!");
                 ((WelcomeCard) card).setOnButtonPressedListener(new OnButtonPressListener() {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
@@ -389,7 +405,7 @@ public class MainActivity extends ActionBarActivity {
                     }
                 });
 
-                ((WelcomeCard) card).setBackgroundColor(Color.rgb(55, 62, 64));
+                ((WelcomeCard) card).setBackgroundColor(Color.rgb(255, 153, 51));
                 card.setDismissible(true);
                 return card;
 
