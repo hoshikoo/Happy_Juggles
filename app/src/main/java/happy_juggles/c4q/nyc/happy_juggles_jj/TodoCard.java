@@ -1,12 +1,15 @@
-package happy_juggles.c4q.nyc.happy_juggles;
+package happy_juggles.c4q.nyc.happy_juggles_jj;
+
+/**
+ * HOSHIKO'S TODO CARD
+ *
+ * Created by Hoshiko on 7/1/15.
+ */
 
 import android.content.Context;
 
 import com.dexafree.materialList.cards.SimpleCard;
 
-/**
- * Created by Hoshiko on 7/1/15.
- */
 public class TodoCard extends SimpleCard {
     public TodoCard(Context context) {
         super(context);

@@ -18,7 +18,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FFFC970B"
+                android:background="#D8A43A"
                 android:layout_weight="1">
 
                 <TextView
@@ -173,7 +173,7 @@
                 android:drawablePadding="@dimen/big_padding"
                 style="@style/LeftButtonBaseStyle"
                 tools:text="Check Forcast"
-                android:background="#FF8DAF0D"
+                android:background="#88B53B"
 
                 android:textColor="@android:color/white"/>
         </LinearLayout>

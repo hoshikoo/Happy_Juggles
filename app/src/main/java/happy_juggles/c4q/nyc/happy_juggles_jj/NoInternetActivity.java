@@ -1,4 +1,10 @@
-package happy_juggles.c4q.nyc.happy_juggles;
+package happy_juggles.c4q.nyc.happy_juggles_jj;
+
+/**
+ * HOSHIKO'S NO INTERNET ACTIVITY
+ *
+ * Created by Hoshiko on 7/1/15.
+ */
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,9 +12,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-/**
- * Created by Hoshiko on 7/1/15.
- */
 public class NoInternetActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

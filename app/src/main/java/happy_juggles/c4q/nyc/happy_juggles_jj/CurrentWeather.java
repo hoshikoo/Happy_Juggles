@@ -1,12 +1,15 @@
-package happy_juggles.c4q.nyc.happy_juggles;
+package happy_juggles.c4q.nyc.happy_juggles_jj;
+
+/**
+ * JANNEISY'S WEATHER CARD
+ *
+ * Created by s3a on 6/29/15.
+ */
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-/**
- * Created by s3a on 6/29/15.
- */
 public class CurrentWeather  {
     private String mIcon;
     private Long mTime;

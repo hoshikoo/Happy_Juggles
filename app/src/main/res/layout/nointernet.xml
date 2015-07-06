@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff00ace6">
+    android:background="#2EB3A5">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:text="Go Back to Cards"
         android:id="@+id/check_internet_button"
+        android:background="@drawable/white_button"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="57dp" />

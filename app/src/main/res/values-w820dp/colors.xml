@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ <!-- FOR JOSHELYN SPORT CARD -->
+    <color name="country">#666666</color>
+    <color name="wins">#ffffff</color>
+    <color name="list_divider">#888888</color>
+    <color name="list_row_start_color">#ffffff</color>
+    <color name="list_row_end_color">#ffffff</color>
+    <color name="list_row_hover_start_color">#ebeef0</color>
+    <color name="list_row_hover_end_color">#ebeef0</color>
+
+</resources>

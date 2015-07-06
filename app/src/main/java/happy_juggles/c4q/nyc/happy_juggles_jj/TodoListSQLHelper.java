@@ -1,13 +1,15 @@
-package happy_juggles.c4q.nyc.happy_juggles;
+package happy_juggles.c4q.nyc.happy_juggles_jj;
+
+/**
+ * HOSHIKO'S TODO CARD
+ *
+ * Created by Hoshiko on 6/29/15.
+ */
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
-
-/**
- * Created by Hoshiko on 6/29/15.
- */
 
 public class TodoListSQLHelper extends SQLiteOpenHelper {
 

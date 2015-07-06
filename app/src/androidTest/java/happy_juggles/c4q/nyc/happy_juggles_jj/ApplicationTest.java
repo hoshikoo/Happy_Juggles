@@ -1,4 +1,4 @@
-package happy_juggles.c4q.nyc.happy_juggles;
+package happy_juggles.c4q.nyc.happy_juggles_jj;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

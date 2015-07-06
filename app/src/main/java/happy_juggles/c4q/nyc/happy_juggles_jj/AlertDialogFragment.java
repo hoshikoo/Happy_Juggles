@@ -1,4 +1,10 @@
-package happy_juggles.c4q.nyc.happy_juggles;
+package happy_juggles.c4q.nyc.happy_juggles_jj;
+
+/**
+ * JANNEISY CARD
+ *
+ * Created by s3a on 6/29/15.
+ */
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -6,9 +12,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 
-/**
- * Created by s3a on 6/29/15.
- */
+
 public class AlertDialogFragment extends DialogFragment {
 
     @Override

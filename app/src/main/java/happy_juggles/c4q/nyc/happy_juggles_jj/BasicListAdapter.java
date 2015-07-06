@@ -1,4 +1,4 @@
-package happy_juggles.c4q.nyc.happy_juggles;
+package happy_juggles.c4q.nyc.happy_juggles_jj;
 
 /**
  * The MIT License (MIT)
@@ -23,6 +23,7 @@ package happy_juggles.c4q.nyc.happy_juggles;
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
  */
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ public class BasicListAdapter extends ArrayAdapter<String> {
     public BasicListAdapter(final Context context) {
         super(context, android.R.layout.simple_list_item_1);
     }
+
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {

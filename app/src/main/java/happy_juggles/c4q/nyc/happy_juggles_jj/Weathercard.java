@@ -1,16 +1,9 @@
-package happy_juggles.c4q.nyc.happy_juggles;
-
-import android.content.Intent;
-import android.net.Uri;
-import android.view.View;
-import android.widget.Toast;
-
-import com.dexafree.materialList.cards.BasicButtonsCard;
-import com.dexafree.materialList.cards.OnButtonPressListener;
-import com.dexafree.materialList.model.Card;
+package happy_juggles.c4q.nyc.happy_juggles_jj;
 
 /**
- * Created by s3a on 7/1/15.
+ * JANNEISY'S WEATHER CARD
+ *
+ * Created by s3a on 6/30/15.
  */
 public class Weathercard {
 

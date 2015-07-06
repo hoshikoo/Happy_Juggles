@@ -1,4 +1,4 @@
-package happy_juggles.c4q.nyc.happy_juggles.db;
+package happy_juggles.c4q.nyc.happy_juggles_jj.db;
 
 /**
  * Created by Hoshiko on 6/29/15.

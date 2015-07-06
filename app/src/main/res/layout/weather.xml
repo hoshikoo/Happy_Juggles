@@ -10,7 +10,7 @@
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 tools:context = ".MainActivity"
-                android:background="#FFFC970B"
+                android:background="#D8A43A"
     >
 
 

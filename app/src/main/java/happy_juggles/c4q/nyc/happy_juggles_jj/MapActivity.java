@@ -1,5 +1,10 @@
-package happy_juggles.c4q.nyc.happy_juggles;
+package happy_juggles.c4q.nyc.happy_juggles_jj;
 
+/**
+ * HOSHIKO'S MAP CARD
+ *
+ * Created by Hoshiko on 6/28/15.
+ */
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -50,10 +55,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-/**
- * Created by Hoshiko on 6/28/15.
- */
 public class MapActivity extends Activity implements OnMapReadyCallback, LocationListener {
     GoogleMap map;
     ArrayList<LatLng> markerPoints;

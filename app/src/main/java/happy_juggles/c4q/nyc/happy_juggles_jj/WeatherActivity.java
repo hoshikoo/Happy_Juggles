@@ -1,4 +1,10 @@
-package happy_juggles.c4q.nyc.happy_juggles;
+package happy_juggles.c4q.nyc.happy_juggles_jj;
+
+/**
+ * JANNEISY'S WEATHER CARD
+ *
+ * Created by s3a on 6/30/15.
+ */
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,9 +32,6 @@ import java.io.IOException;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-/**
- * Created by s3a on 6/30/15.
- */
 public class WeatherActivity extends Activity {
 
     public static final String TAG = WeatherActivity.class.getSimpleName();
@@ -37,8 +40,7 @@ public class WeatherActivity extends Activity {
     public MaterialListView mListView;
 
 
-    @InjectView(R.id.temperature_label)
-    TextView mTemperatureLabel;
+    @InjectView(R.id.temperature_label)TextView mTemperatureLabel;
     @InjectView(R.id.time_label) TextView mTimeLabel;
     @InjectView(R.id.humidity_value)TextView mHumidityValue;
     @InjectView(R.id.precip_value)TextView mPrecipValue;

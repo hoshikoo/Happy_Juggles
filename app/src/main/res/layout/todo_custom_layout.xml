@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<happy_juggles.c4q.nyc.happy_juggles.TodoCardItemView
+<happy_juggles.c4q.nyc.happy_juggles_jj.TodoCardItemView
 xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:tools="http://schemas.android.com/tools"
 style="@style/MainLayout">
@@ -30,4 +30,4 @@ style="@style/MainLayout">
 
 </android.support.v7.widget.CardView>
 
-</happy_juggles.c4q.nyc.happy_juggles.TodoCardItemView>
+</happy_juggles.c4q.nyc.happy_juggles_jj.TodoCardItemView>
