@@ -3,6 +3,8 @@ package happy_juggles.c4q.nyc.happy_juggles_jj;
 // MAIN ACTIVITY- WHERE WE PUT THE CARDS!!!
 
 import android.app.AlertDialog;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.dexafree.materialList.cards.BasicImageButtonsCard;
@@ -45,6 +48,10 @@ public class MainActivity extends ActionBarActivity {
     private MaterialListView mListView;
 
     String googleStaticMap;
+
+    public Button button;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +93,17 @@ public class MainActivity extends ActionBarActivity {
                     Log.d("LONG_CLICK", view.getTag().toString());
                 }
             });
+
+
+        //Fragments
+
+        button= (Button)findViewById(R.id.button);
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.commit();
+
 
     }
 

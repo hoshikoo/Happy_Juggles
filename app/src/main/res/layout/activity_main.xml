@@ -12,8 +12,12 @@
     android:background="#FFFFFF"
     >
 
-
->
+<fragment android:name="happy_juggles.c4q.nyc.happy_juggles_jj.Pop"
+          android:id="@+id/pop"
+          android:layout_width="match_parent"
+          android:layout_height="200dp"
+          android:layout_centerHorizontal="true"
+    />
 
     <!-- A CardView that contains a TextView
 -->

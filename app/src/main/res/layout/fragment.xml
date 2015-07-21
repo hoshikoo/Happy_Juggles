@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+          android:layout_width="100dp"
+          android:layout_height="100dp"
+    android:id="@+id/pop">
+    <TextView android:id="@+id/pop_text"
+              android:text="Welcome"
+              android:textColor="#000000"
+              android:textSize="30sp"/>
+
+    <Button android:id="@+id/button"
+            android:text="ok"
+            android:textSize="20sp"
+            android:width="50dp"
+            android:height="50dp"
+            android:textColor="#000000"
+            android:background="#ffffff"/>
+
+</fragment>
