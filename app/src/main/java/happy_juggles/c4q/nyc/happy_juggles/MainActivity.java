@@ -1,10 +1,16 @@
 package happy_juggles.c4q.nyc.happy_juggles;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -13,11 +19,17 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dexafree.materialList.cards.BasicListCard;
@@ -32,6 +44,9 @@ import com.dexafree.materialList.model.Card;
 import com.dexafree.materialList.model.CardItemView;
 import com.dexafree.materialList.view.MaterialListView;
 
+import happy_juggles.c4q.nyc.happy_juggles.db.TaskContract;
+import happy_juggles.c4q.nyc.happy_juggles.db.TaskDBHelper;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -43,6 +58,13 @@ public class MainActivity extends ActionBarActivity {
     private MaterialListView mListView;
 
     String googleStaticMap;
+
+
+    private ListAdapter listAdapter;
+    private TaskDBHelper helper;
+    String task;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,15 +98,43 @@ public class MainActivity extends ActionBarActivity {
             mListView.addOnItemTouchListener(new RecyclerItemClickListener.OnItemClickListener() {
                 @Override
                 public void onItemClick(CardItemView view, int position) {
-                    Log.d("CARD_TYPE", view.getTag().toString());
-                }
+//                    Log.d("CARD_TYPE", view.getTag().toString());
+
+//                            Toast.makeText(MainActivity.this, "test todo", Toast.LENGTH_SHORT).show();
+//                            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                            builder.setTitle("Add a task");
+//                            builder.setMessage("What do you want to do?");
+//                            final EditText inputField = new EditText(MainActivity.this);
+//                            builder.setView(inputField);
+//                            builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+//                                @Override
+//                                public void onClick(DialogInterface dialogInterface, int i) {
+//                                    String task = inputField.getText().toString();
+//
+//                                    helper = new TaskDBHelper(MainActivity.this);
+//                                    SQLiteDatabase db = helper.getWritableDatabase();
+//                                    ContentValues values = new ContentValues();
+//
+//                                    values.clear();
+//                                    values.put(TaskContract.Columns.TASK, task);
+//
+//                                    db.insertWithOnConflict(TaskContract.TABLE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+//                                    updateUI();
+////                                showNotification();
+//                                }
+//                            });
+//
+//                            builder.setNegativeButton("Cancel", null);
+//
+//                            builder.create().show();
+                        }
+
 
                 @Override
                 public void onItemLongClick(CardItemView view, int position) {
                     Log.d("LONG_CLICK", view.getTag().toString());
                 }
             });
-
     }
 
 
@@ -238,32 +288,100 @@ public class MainActivity extends ActionBarActivity {
 
 
             case 2:
-                card = new WelcomeCard(this);
-                card.setTitle("ToDo List Card");
+//                card = new WelcomeCard(this);
+//                card.setTitle("ToDo List Card");
 //                card.setDescription("You can add the card below");
-                card.setTag("LIST_CARD");
+//                card.setTag("LIST_CARD");
+//
+//                ((WelcomeCard) card).setButtonText("Go to Todo List");
+//
+//                ((WelcomeCard) card).setBackgroundColor(Color.rgb(0, 172, 230));
+//
+//
+//
+//                ((WelcomeCard) card).setOnButtonPressedListener(new OnButtonPressListener() {
+//                    @Override
+//                    public void onButtonPressedListener(View view, Card card) {
+//                        Toast.makeText(mContext, "Let's edit the card!", Toast.LENGTH_SHORT).show();
+//
+//                                        Intent todoIntent = new Intent(MainActivity.this, ToDoList.class);
+//                                        MainActivity.this.startActivity(todoIntent);
+//
+//                    }
+//                });
+//
+//
+//                card.setDismissible(true);
+//
+//                return card;
 
-                ((WelcomeCard) card).setButtonText("Go to Todo List");
+                TodoCard todocard = new  TodoCard(this);
+                todocard.setTitle("ToDo List Card");
+                todocard.setTag("TODO_CARD");
 
-                ((WelcomeCard) card).setBackgroundColor(Color.rgb(0, 172, 230));
+//                Button addButton = (Button)findViewById(R.id.add_button);
+                ((TodoCard) todocard).setButtonText("Add");
 
 
-
-                ((WelcomeCard) card).setOnButtonPressedListener(new OnButtonPressListener() {
+                ((TodoCard) todocard).setOnButtonPressedListener(new OnButtonPressListener() {
                     @Override
                     public void onButtonPressedListener(View view, Card card) {
-                        Toast.makeText(mContext, "Let's edit the card!", Toast.LENGTH_SHORT).show();
 
-                                        Intent todoIntent = new Intent(MainActivity.this, ToDoList.class);
-                                        MainActivity.this.startActivity(todoIntent);
 
+//                  Toast.makeText(mContext, "test todo", Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                        builder.setTitle("Add a task");
+                        builder.setMessage("What do you want to do?");
+                        final EditText inputField = new EditText(mContext);
+                        builder.setView(inputField);
+                        builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                task = inputField.getText().toString();
+
+                                helper = new TaskDBHelper(mContext);
+                                SQLiteDatabase db = helper.getWritableDatabase();
+                                ContentValues values = new ContentValues();
+
+                                values.clear();
+                                values.put(TaskContract.Columns.TASK, task);
+
+                                db.insertWithOnConflict(TaskContract.TABLE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
+
+
+                                helper = new TaskDBHelper(mContext);
+                                SQLiteDatabase sqlDB = helper.getReadableDatabase();
+                                Cursor cursor = sqlDB.query(TaskContract.TABLE,
+                                        new String[]{TaskContract.Columns._ID, TaskContract.Columns.TASK},
+                                        null, null, null, null, null);
+
+                                listAdapter = new SimpleCursorAdapter(
+                                        mContext,
+                                        R.layout.task_view,
+                                        cursor,
+                                        new String[]{TaskContract.Columns.TASK},
+                                        new int[]{R.id.todoTaskTV},
+                                        0
+                                );
+
+                                ListView todolistView = (ListView) findViewById(R.id.todolist);
+                                todolistView.setAdapter(listAdapter);
+
+                                showNotification();
+                            }
+                        });
+
+                        builder.setNegativeButton("Cancel", null);
+
+                        builder.create().show();
                     }
                 });
 
 
-                card.setDismissible(true);
 
-                return card;
+
+
+                return todocard;
 
 
             case 3:
@@ -382,35 +500,35 @@ private Card generateMapCard() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(mContext, "Let's edit the card!", Toast.LENGTH_SHORT).show();
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+//                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
 
-                // set title
-                alertDialogBuilder.setTitle("Edit the todo list");
-
-                // set dialog message
-                alertDialogBuilder
-                        .setMessage("Click yes to exit!")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // if this button is clicked, close
-                                // current activity
-                                MainActivity.this.finish();
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // if this button is clicked, just close
-                                // the dialog box and do nothing
-                                dialog.cancel();
-                            }
-                        });
-
-                // create alert dialog
-                AlertDialog alertDialog = alertDialogBuilder.create();
-
-                // show it
-                alertDialog.show();
+//                // set title
+//                alertDialogBuilder.setTitle("Edit the todo list");
+//
+//                // set dialog message
+//                alertDialogBuilder
+//                        .setMessage("Click yes to exit!")
+//                        .setCancelable(false)
+//                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                // if this button is clicked, close
+//                                // current activity
+//                                MainActivity.this.finish();
+//                            }
+//                        })
+//                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                // if this button is clicked, just close
+//                                // the dialog box and do nothing
+//                                dialog.cancel();
+//                            }
+//                        });
+//
+//                // create alert dialog
+//                AlertDialog alertDialog = alertDialogBuilder.create();
+//
+//                // show it
+//                alertDialog.show();
 
             }
         });
@@ -518,6 +636,77 @@ private Card generateMapCard() {
                     haveConnectedMobile = true;
         }
         return haveConnectedWifi || haveConnectedMobile;
+    }
+
+
+    private void updateUI() {
+        helper = new TaskDBHelper(this);
+        SQLiteDatabase sqlDB = helper.getReadableDatabase();
+        Cursor cursor = sqlDB.query(TaskContract.TABLE,
+                new String[]{TaskContract.Columns._ID, TaskContract.Columns.TASK},
+                null, null, null, null, null);
+
+        listAdapter = new SimpleCursorAdapter(
+                getBaseContext(),
+                R.layout.task_view,
+                cursor,
+                new String[]{TaskContract.Columns.TASK},
+                new int[]{R.id.todoTaskTV},
+                0
+        );
+
+        ListView todolistView = (ListView) findViewById(R.id.todolist);
+        todolistView.setAdapter(listAdapter);
+
+    }
+
+    public void onDoneButtonClick(View view) {
+        View v = (View) view.getParent();
+        TextView taskTextView = (TextView) v.findViewById(R.id.todoTaskTV);
+        String task = taskTextView.getText().toString();
+
+        String sql = String.format("DELETE FROM %s WHERE %s = '%s'",
+                TaskContract.TABLE,
+                TaskContract.Columns.TASK,
+                task);
+
+
+        helper = new TaskDBHelper(this);
+        SQLiteDatabase sqlDB = helper.getWritableDatabase();
+        sqlDB.execSQL(sql);
+        updateUI();
+    }
+
+    //NOTIFICATION----------------------------
+
+    public static final int NOTIFICATION_ID = 1234;
+
+    private void showNotification() {
+        updateNotification("New task added in ToDo List", task);
+    }
+
+    private void updateNotification(String titletext, String contentText){
+
+
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+
+        builder.setAutoCancel(true);
+
+        builder.setContentTitle(titletext);
+        builder.setSmallIcon(R.drawable.ic_stat_action_assignment);
+        builder.setContentText(contentText);
+
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+
+
+        Notification notification = builder.build();
+        notificationManager.notify(NOTIFICATION_ID, notification);
+
+
     }
 
 }
