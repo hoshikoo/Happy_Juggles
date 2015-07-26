@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:id="@+id/container"
+    tools:context=".MainActivity">
+
+    <fragment
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/cards"
+        class = "happy_juggles.c4q.nyc.happy_juggles.CardViewFragment"
+        android:layout_weight="1"/>
+
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background = "?android:attr/detailsElementBackground"
+        android:layout_weight="2"
+        android:id="@+id/details"
+        class = "happy_juggles.c4q.nyc.happy_juggles.CardViewFragment">
+
+    </FrameLayout>
+
+
+</LinearLayout>

@@ -1,9 +1,10 @@
 package happy_juggles.c4q.nyc.happy_juggles;
 
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -15,8 +16,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +32,6 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -54,7 +56,8 @@ import java.util.List;
 /**
  * Created by Hoshiko on 6/28/15.
  */
-public class MapActivity extends Activity implements OnMapReadyCallback, LocationListener {
+public class MapActivityFragment extends Fragment implements OnMapReadyCallback, LocationListener {
+
     GoogleMap map;
     ArrayList<LatLng> markerPoints;
     TextView tvDistanceDuration;
@@ -73,27 +76,30 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
 
     AlertDialog.Builder builder;
 
+    ViewGroup mapFragmentView;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.map_layout);
+        mapFragmentView = (ViewGroup) inflater.inflate(R.layout.map_layout, container, false);
         alert();
 
         // Getting Google Play availability status
-        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity().getBaseContext());
 
         // Showing status
         if(status!= ConnectionResult.SUCCESS){ // Google Play Services are not available
 
             int requestCode = 10;
-            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, this, requestCode);
+            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, getActivity(), requestCode);
             dialog.show();
 
         }else { // Google Play Services are available
 
             // Getting reference to the SupportMapFragment of activity_main.xml
             //SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-            MapFragment mapFragment = (MapFragment) getFragmentManager()
+            com.google.android.gms.maps.MapFragment mapFragment = (com.google.android.gms.maps.MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
             // Getting GoogleMap object from the fragment
@@ -103,7 +109,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
             map.setMyLocationEnabled(true);
 
             // Getting LocationManager object from System Service LOCATION_SERVICE
-            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200000, 0, this);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 200000, 0, this);
             locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 200000, 0, this);
@@ -127,16 +133,16 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
 
 
         // Getting reference to rb_driving
-        rbDriving = (RadioButton) findViewById(R.id.rb_driving);
+        rbDriving = (RadioButton) mapFragmentView.findViewById(R.id.rb_driving);
 
         // Getting reference to rb_bicylcing
-        rbBiCycling = (RadioButton) findViewById(R.id.rb_bicycling);
+        rbBiCycling = (RadioButton) mapFragmentView.findViewById(R.id.rb_bicycling);
 
         // Getting reference to rb_walking
-        rbWalking = (RadioButton) findViewById(R.id.rb_walking);
+        rbWalking = (RadioButton) mapFragmentView.findViewById(R.id.rb_walking);
 
         // Getting Reference to rg_modes
-        rgModes = (RadioGroup) findViewById(R.id.rg_modes);
+        rgModes = (RadioGroup) mapFragmentView.findViewById(R.id.rg_modes);
 
         rgModes.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
@@ -197,7 +203,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
         });
 
 
-            Button saveButton = (Button)findViewById(R.id.home_add_save);
+            Button saveButton = (Button)mapFragmentView.findViewById(R.id.home_add_save);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,7 +215,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
 
 
 
-        Button getDirection = (Button)findViewById(R.id.get_direction);
+        Button getDirection = (Button)mapFragmentView.findViewById(R.id.get_direction);
         getDirection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -241,12 +247,12 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
 //                    result = total.toString();
 
 
-                    SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                    SharedPreferences preferences = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
                     // Writing data to SharedPreferences
                     SharedPreferences.Editor editor = preferences.edit();
                     result = preferences.getString("LatLngStr", "");
 
-                    Toast.makeText(getBaseContext(), result, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getBaseContext(), result, Toast.LENGTH_SHORT).show();
                     //return;
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -272,6 +278,8 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
 
             }
         });
+
+        return mapFragmentView;
     }
 
 
@@ -449,7 +457,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
 //                    outputStream.close();
 
 
-                    SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                    SharedPreferences preferences = getActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("LatLngStr",savedLat);
                     editor.commit();
@@ -752,7 +760,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
             }
 
             if(result.size()<1){
-                Toast.makeText(getBaseContext(), "No Points", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getBaseContext(), "No Points", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -762,10 +770,10 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
     }
 
     public void alert(){
-        builder = new AlertDialog.Builder(this);
+        builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Save Address");
         builder.setMessage("Please enter the address");
-        final EditText inputField = new EditText(this);
+        final EditText inputField = new EditText(getActivity());
         inputField.setOnKeyListener(new View.OnKeyListener() {
             /**
              * This listens for the user to press the enter button on
@@ -775,7 +783,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
                 // If the event is a key-down event on the "enter" button
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (arg1 == KeyEvent.KEYCODE_ENTER)) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(inputField.getWindowToken(), 0);
                     return true;
                 }
@@ -787,9 +795,9 @@ public class MapActivity extends Activity implements OnMapReadyCallback, Locatio
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String location = inputField.getText().toString();
-                Toast.makeText(getBaseContext(), location, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getBaseContext(), location, Toast.LENGTH_SHORT).show();
                 if(location==null || location.equals("")){
-                    Toast.makeText(getBaseContext(), "No Place is entered", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getBaseContext(), "No Place is entered", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
